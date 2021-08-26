@@ -22,7 +22,7 @@ var functions = {
     },
     authenticate: function(req, res) {
         User.findOne({
-                name: req.body.name
+                userName: req.body.name
             }, function(err, user) {
                 if (err) throw err
                 if (!user) {
@@ -30,8 +30,9 @@ var functions = {
                 } else {
                     user.comparePassword(req.body.password, function(err, isMatch) {
                         if (isMatch && !err) {
-                            var token = jwt.encode(user, config.secret)
-                            res.json({ success: true, token: token, msg: 'correct' })
+                            var token = jwt.encode(user, config.secret);
+                            var userJson = user.toJSON();
+                            res.json({ user: userJson, success: true, token: token, msg: 'correct' })
                         } else {
                             return res.status(403).send({ success: false, msg: 'Authetication failed, wrong' })
                         }
