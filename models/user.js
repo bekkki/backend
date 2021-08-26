@@ -1,14 +1,17 @@
 var mongoose = require('mongoose')
+mongoose.pluralize(null);
 var Schema = mongoose.Schema;
 var bcrypt = require('bcrypt')
 var userSchema = new Schema({
-    name: {
+    userName: {
         type: String,
         require: true
     },
     password: {
         type: String,
-        require: true
+    },
+    role: {
+        type: String,
     }
 })
 userSchema.pre('save', function(next) {
@@ -38,4 +41,4 @@ userSchema.methods.comparePassword = function(passw, cb) {
         cb(null, isMatch)
     })
 }
-module.exports = mongoose.model('User', userSchema)
+module.exports = mongoose.model('UserCollection', userSchema)

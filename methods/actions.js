@@ -7,8 +7,9 @@ var functions = {
             res.json({ success: false, msg: 'enter all field' })
         } else {
             var newUser = User({
-                name: req.body.name,
-                password: req.body.password
+                userName: req.body.name,
+                password: req.body.password,
+                role: 'farmer'
             });
             newUser.save(function(err, newUser) {
                 if (err) {
