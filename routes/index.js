@@ -13,4 +13,5 @@ router.post('/adduser', actions.addNew)
 router.post('/authenticate', actions.authenticate)
 router.get('/getinfo', actions.getinfo)
 router.get('/getposts', actions.getposts)
+router.post('/explore_idea', actions.exploreIdea)
 module.exports = router

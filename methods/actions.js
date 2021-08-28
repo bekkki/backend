@@ -1,5 +1,6 @@
 var User = require('../models/user')
 var Post = require('../models/posts')
+var Explore = require('../models/exploreIdea')
 
 var jwt = require('jwt-simple')
 var config = require('../config/dbconfig')
@@ -64,6 +65,24 @@ var functions = {
                 return res.send(doc);
             }
         });
+    },
+    exploreIdea: function(req, res) {
+        if ((!req.body.message)) {
+            res.json({ success: false, msg: 'make sure all required fillds' })
+        } else {
+            var explore = Explore({
+                userId: req.body.userId,
+                message: req.body.message,
+                date: req.body.date
+            });
+            explore.save(function(err, idea) {
+                if (err) {
+                    res.json({ success: false, msg: 'Failes to save' })
+                } else {
+                    res.json({ success: true, msg: 'Successfully Saved' })
+                }
+            })
+        }
     }
 }
 module.exports = functions

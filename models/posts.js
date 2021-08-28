@@ -15,5 +15,4 @@ var postSchema = new Schema({
         type: String
     }
 })
-
 module.exports = mongoose.model('postCollection', postSchema)
