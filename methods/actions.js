@@ -1,4 +1,6 @@
 var User = require('../models/user')
+var Post = require('../models/posts')
+
 var jwt = require('jwt-simple')
 var config = require('../config/dbconfig')
 var functions = {
@@ -50,6 +52,15 @@ var functions = {
             return res.json({ success: true, msg: 'hello' + decodedtoken.name })
         } else {
             return res.json({ success: false, msg: 'no header' })
+        }
+
+    },
+    getposts: function(req, res) {
+        try {
+            const posts = Post.find();
+            res.status(200).json(posts);
+        } catch (err) {
+            res.status(404).json({ message: err.message });
         }
 
     }
