@@ -56,14 +56,14 @@ var functions = {
 
     },
     getposts: function(req, res) {
-        try {
-            const posts = Post.find();
-            res.status(200).json(posts);
-        } catch (err) {
-            res.status(404).json({ message: err.message });
-        }
-
+        const posts = Post.find((err, doc) => {
+            if (err) res.status(500).send();
+            if (!doc) {
+                return res.send(false);
+            } else {
+                return res.send(doc);
+            }
+        });
     }
-
 }
 module.exports = functions
